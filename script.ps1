@@ -78,7 +78,7 @@ Expand-Archive -Path "$ScriptFiles.zip" -DestinationPath $ScriptFiles
 #region - Install software
 #region - Set winget settings
 # https://learn.microsoft.com/en-us/windows/package-manager/winget/settings#scope
-Copy-Item -Path "$ScriptFiles\settings manifests\winget.json" -Destination "$Env:LOCALAPPDAT\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
+Copy-Item -Path "$ScriptFiles\settings manifests\winget.json" -Destination "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
 #endregion - Set winget settings
 
@@ -201,7 +201,7 @@ foreach ($Item in $Links.GetEnumerator()) {
 #region - Costumize installed software
 #region - Windows Terminal
 # https://learn.microsoft.com/en-us/windows/terminal/install#settings-json-file
-Copy-Item -Path "$ScriptFiles\settings manifests\windows terminal.json" -Destination "$Env:LOCALAPPDAT\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+Copy-Item -Path "$ScriptFiles\settings manifests\windows terminal.json" -Destination "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
 #endregion - Windows Terminal
 
