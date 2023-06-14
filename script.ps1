@@ -10,34 +10,37 @@ $ScriptFiles = "$($Env:TEMP)\deploy-windows11-development"
 Rename-Computer -NewName "CaldeiraROG"
 
 # Disable 260 char filesystem path limit
-# https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell
-Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -PropertyType DWORD -Force
+# https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell#enable-long-paths-in-windows-10-version-1607-and-later
+New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1 -PropertyType DWORD
 
 # File Explorer
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -PropertyType DWORD -Force # File name extensions
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hiden' -Value 1 -PropertyType DWORD -Force # Show hidden files, folders and drives
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideDrivesWithNoMedia' -Value 0 -PropertyType DWORD -Force # Hide empty drives
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SeparateProcess' -Value 1 -PropertyType DWORD -Force # Launch folder windows in a separate process
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'NavPaneShowAllCloudStates' -Value 1 -PropertyType DWORD -Force # Always show availability status
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideMergeConflicts' -Value 0 -PropertyType DWORD -Force # Hide folder merge conflicts
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 # File name extensions
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'Hiden' -Value 1 # Show hidden files, folders and drives
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideDrivesWithNoMedia' -Value 0 # Hide empty drives
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'SeparateProcess' -Value 1 # Launch folder windows in a separate process
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'NavPaneShowAllCloudStates' -Value 1 # Always show availability status
+New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideMergeConflicts' -Value 0 -PropertyType DWORD # Hide folder merge conflicts
 
 # RDP
-Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value 0 -PropertyType DWORD -Force
+Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value 0 # Enable RDP
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
 # Clipboard history and cloud sync
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'EnableClipboardHistory' -Value 1 -PropertyType DWORD -Force
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'EnableCloudClipboard' -Value 1 -PropertyType DWORD -Force
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'CloudClipboardAutomaticUpload' -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'EnableClipboardHistory' -Value 1 -PropertyType DWORD # Enable clipboard history
+New-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'EnableCloudClipboard' -Value 1 -PropertyType DWORD # Enable clipboard sync with my devices
+New-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name 'CloudClipboardAutomaticUpload' -Value 1 -PropertyType DWORD # Enable automatic clipboard sync with my devices
 
 # Touchpad
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad' -Name 'ScrollDirection' -Value 'ffffffff' -PropertyType DWORD -Force
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad' -Name 'LeaveOnWithMouse' -Value 0 -PropertyType DWORD -Force
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad' -Name 'ThreeFingerTapEnabled' -Value 4 -PropertyType DWORD -Force
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad' -Name 'ScrollDirection' -Value 'ffffffff' # Downwards motion scrolls down
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad' -Name 'LeaveOnWithMouse' -Value 0 # Leave touchpad on when a mouse is connected
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\PrecisionTouchPad' -Name 'ThreeFingerTapEnabled' -Value 4 # Middle mouse button
 
 # Multiple displays
-Set-ItemProperty -Path 'HKCU:\HKEY_CURRENT_USER\Control Panel\Cursors' -Name 'CursorDeadzoneJumpingSetting' -Value 0 -PropertyType DWORD -Force # Ease cursor movement between displays
+Set-ItemProperty -Path 'HKCU:\Control Panel\Cursors' -Name 'CursorDeadzoneJumpingSetting' -Value 0 # Ease cursor movement between displays
 
+# Power Throttling
+New-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\' -Name 'PowerThrottling'
+New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' -Name 'PowerThrottlingOff' -Value 1 -PropertyType DWORD # Disable power Throttling
 
 #endregion
 
@@ -78,7 +81,7 @@ Expand-Archive -Path "$ScriptFiles.zip" -DestinationPath $ScriptFiles
 #region - Install software
 #region - Set winget settings
 # https://learn.microsoft.com/en-us/windows/package-manager/winget/settings#scope
-Copy-Item -Path "$ScriptFiles\settings manifests\winget.json" -Destination "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
+Copy-Item -Path "$ScriptFiles\assets\settings manifests\winget.json" -Destination "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 
 #endregion - Set winget settings
 
@@ -140,6 +143,7 @@ foreach ($Item in $Passive) {
 }
 
 # Install Python 3
+# https://docs.python.org/3/using/windows.html#installing-without-ui
 winget install Python3 --accept-source-agreements --accept-package-agreements --override 'InstallAllUsers=1 CompileAll=1 /passive'
 
 # Install WSL with Ubuntu
@@ -201,7 +205,7 @@ foreach ($Item in $Links.GetEnumerator()) {
 #region - Costumize installed software
 #region - Windows Terminal
 # https://learn.microsoft.com/en-us/windows/terminal/install#settings-json-file
-Copy-Item -Path "$ScriptFiles\settings manifests\windows terminal.json" -Destination "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+Copy-Item -Path "$ScriptFiles\assets\settings manifests\windows terminal.json" -Destination "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
 #endregion - Windows Terminal
 
