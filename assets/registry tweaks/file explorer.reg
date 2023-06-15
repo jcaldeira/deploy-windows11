@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"HideFileExt"=dword:00000000 ; File name extensions
+"Hiden"=dword:00000001 ; Show hidden files, folders and drives
+"HideDrivesWithNoMedia"=dword:00000000 ; Hide empty drives
+"SeparateProcess"=dword:00000001 ; Launch folder windows in a separate process
+"NavPaneShowAllCloudStates"=dword:00000001 ; Always show availability status
+"HideMergeConflicts"=dword:00000000 ; Hide folder merge conflicts

@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+; https://learn.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings?tabs=parameters#windows-time-registry-reference
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters]
+"NtpServer"="pool.ntp.org,0x1"

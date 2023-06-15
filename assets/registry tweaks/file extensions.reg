@@ -1,0 +1,70 @@
+Windows Registry Editor Version 5.00
+
+; https://learn.microsoft.com/en-gb/windows/win32/shell/fa-file-types?redirectedfrom=MSDN&source=docs#setting-optional-subkeys-and-file-type-extension-attributes
+; https://learn.microsoft.com/en-us/windows/win32/shell/how-to-register-a-preview-handler
+; .code-workspace
+[HKEY_CURRENT_USER\Software\Classes\.code-workspace\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.code-workspace\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .code-profile
+[HKEY_CURRENT_USER\Software\Classes\.code-profile\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.code-profile\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .conf
+[HKEY_CURRENT_USER\Software\Classes\.conf\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.conf\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .config
+[HKEY_CURRENT_USER\Software\Classes\.config\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.config\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .csv
+[HKEY_CURRENT_USER\Software\Classes\.csv\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.csv\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+
+; .gitignore
+[HKEY_CURRENT_USER\Software\Classes\.gitignore\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.gitignore\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .ini
+[HKEY_CURRENT_USER\Software\Classes\.ini\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.ini\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .key
+[HKEY_CURRENT_USER\Software\Classes\.key\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.key\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .log
+[HKEY_CURRENT_USER\Software\Classes\.log\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.log\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .ovpn
+[HKEY_CURRENT_USER\Software\Classes\.ovpn\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.ovpn\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"
+
+; .ppk
+[HKEY_CURRENT_USER\Software\Classes\.ppk\shellex]
+
+[HKEY_CURRENT_USER\Software\Classes\.ppk\shellex\{8895b1c6-b41f-4c1c-a562-0d564250836f}]
+@="{D8034CFA-F34B-41FE-AD45-62FCBB52A6DA}"

@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Microsoft\Clipboard]
+"EnableClipboardHistory"=dword:00000001 ; Enable clipboard history
+"EnableCloudClipboard"=dword:00000001 ; Enable clipboard sync with my devices
+"CloudClipboardAutomaticUpload"=dword:00000001 ; Enable automatic clipboard sync with my devices

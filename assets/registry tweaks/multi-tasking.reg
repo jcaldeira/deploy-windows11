@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+; https://www.elevenforum.com/t/change-what-alt-tab-shows-in-windows-11.3836/#Two
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"MultiTaskingAltTabFilter"=dword:00000003 ; Don't show tabs

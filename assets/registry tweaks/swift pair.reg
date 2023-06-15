@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00
+
+; https://www.elevenforum.com/t/enable-or-disable-bluetooth-swift-pair-in-windows-11.5665/#Two
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Bluetooth]
+"AdvancedDiscoveryMode"=dword:00000001 ; Bluetooth devices discovery
+"QuickPair"=dword:00000001 ; Show notifications to connect using Swift Pair
