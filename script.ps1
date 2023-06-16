@@ -48,7 +48,7 @@ Enable-WindowsOptionalFeature -FeatureName 'TFTP' -All -NoRestart -Online
 #region - Windows capabilities
 # Install the OpenSSH Client and Server
 # https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=powershell#install-openssh-for-windows
-Add-WindowsCapability -Online -Name 'OpenSSH.Server~~~~0.0.1.0'
+# Add-WindowsCapability -Online -Name 'OpenSSH.Server~~~~0.0.1.0'
 Add-WindowsCapability -Online -Name 'OpenSSH.Client~~~~0.0.1.0'
 
 #endregion - Windows capabilities
@@ -65,6 +65,7 @@ Copy-Item -Path "$SettingsManifests\winget.json" -Destination "$Env:LOCALAPPDATA
 
 #region - Install passively
 $Passive = @(
+    '7zip.7zip',
     '9N0866FS04W8', # Dolby Access
     '9N7R5S6B0ZZH', # MyASUS
     '9NBLGGH33N0N', # WiFi Analyser
@@ -77,10 +78,10 @@ $Passive = @(
     'Google.Chrome',
     'Google.Drive',
     'Jellyfin.JellyfinMediaPlayer',
-    'M2Team.NanaZip',
     'Microsoft.PowerToys',
     'Microsoft.WindowsTerminal',
     'Nvidia.GeForceExperience',
+    'Ookla.Speedtest.Desktop',
     'Ookla.Speedtest',
     'RiotGames.LeagueOfLegends.EUW',
     'Twilio.Authy',
@@ -107,6 +108,7 @@ $Passive = @(
     # 'MoritzBunkus.MKVToolNix',
     # 'Notepad++.Notepad++',
     # 'OBSProject.OBSStudio',
+    # 'Ookla.Speedtest.CLI',
     # 'Pushbullet.Pushbullet',
     # 'RaspberryPiFoundation.RaspberryPiImager'
     # 'REALiX.HWiNFO',
@@ -125,7 +127,9 @@ foreach ($Item in $Passive) {
 winget install Python3 --accept-source-agreements --accept-package-agreements --override 'InstallAllUsers=1 CompileAll=1 /passive'
 
 # Install WSL with Ubuntu
-wsl --install --distribution Ubuntu --no-launch
+# https://learn.microsoft.com/en-us/windows/wsl/install-manual
+# Invoke-WebRequest -Uri 'https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi' -OutFile "$ScriptFiles\wsl_update_x64.msi"
+wsl --install
 # wsl --set-default-version 2
 
 #endregion - Install passively
@@ -171,6 +175,7 @@ foreach ($Item in $Links.GetEnumerator()) {
     }
     Write-Output "Executing $ScriptFiles\$($Item.Name)"
     . "$ScriptFiles\$($Item.Name)"
+    Read-Host -Prompt 'Press ENTER to continue...'
 }
 
 #endregion - Manual installation
