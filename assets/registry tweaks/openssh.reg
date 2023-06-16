@@ -1,4 +1,5 @@
 Windows Registry Editor Version 5.00
 
 ; https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration?source=recommendations#configuring-the-default-shell-for-openssh-in-windows
+[HKEY_LOCAL_MACHINE\SOFTWARE\OpenSSH]
 "DefaultShell"="C:\Program Files\PowerShell\7\pwsh.exe"

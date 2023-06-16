@@ -4,6 +4,6 @@ Windows Registry Editor Version 5.00
 "AppsUseLightTheme"=dword:00000000 ; Apps theme
 "SystemUsesLightTheme"=dword:00000000 ; System theme
 
-; [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
-; "AppsUseLightTheme"=dword:00000000 ; Apps theme
-; "SystemUsesLightTheme"=dword:00000000 ; System theme
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+"AppsUseLightTheme"=dword:00000000 ; Apps theme
+"SystemUsesLightTheme"=dword:00000000 ; System theme
