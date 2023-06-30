@@ -1,0 +1,19 @@
+Windows Registry Editor Version 5.00
+
+; https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-language-pack-default-values?view=windows-11
+; https://renenyffenegger.ch/notes/Windows/registry/tree/HKEY_CURRENT_USER/Keyboard-Layout/index
+[HKEY_CURRENT_USER\Keyboard Layout\Preload]
+"1"="d0010809"
+"2"="00000809"
+"3"="d0020809"
+"4"="00000816"
+
+[HKEY_CURRENT_USER\Keyboard Layout\Substitutes]
+"00000809"="0000040a"
+"d0010809"="00000816"
+"d0020809"="00020409"
+
+; 816 Portuguese
+; 809 UK
+; 40a Spanish
+; 20409 US Internation

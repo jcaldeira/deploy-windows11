@@ -1,7 +1,9 @@
 # https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget-on-windows-sandbox
 
 #region - Variables
-$ScriptFiles = "$($Env:TEMP)\deploy-windows11-development"
+$InformationPreference = 'Continue'
+$GitBranch = 'development'
+$ScriptFiles = "$($Env:TEMP)\deploy-windows11-$GitBranch"
 $SettingsManifests = "$ScriptFiles\assets\settings manifests"
 $RegistryTweaks = "$ScriptFiles\assets\registry tweaks"
 
@@ -10,7 +12,8 @@ $RegistryTweaks = "$ScriptFiles\assets\registry tweaks"
 
 #region - Set up environment
 # Download deployment files
-Invoke-WebRequest -Uri 'https://github.com/jcaldeira/deploy-windows11/archive/refs/heads/development.zip' -OutFile "$ScriptFiles.zip"
+Write-Information -MessageData 'Downloading GitHub Files'
+Invoke-WebRequest -Uri "https://github.com/jcaldeira/deploy-windows11/archive/refs/heads/$GitBranch.zip" -OutFile "$ScriptFiles.zip"
 
 # Unzip files
 Expand-Archive -Path "$ScriptFiles.zip" -DestinationPath $Env:TEMP
@@ -20,7 +23,7 @@ Expand-Archive -Path "$ScriptFiles.zip" -DestinationPath $Env:TEMP
 
 #region - Tweak Windows OS
 # Hostname
-Rename-Computer -NewName "CaldeiraROG"
+Rename-Computer -NewName 'CaldeiraROG'
 
 # Apply .reg files
 foreach ($Item in (Get-ChildItem -Path $RegistryTweaks)) {
@@ -28,7 +31,7 @@ foreach ($Item in (Get-ChildItem -Path $RegistryTweaks)) {
 }
 
 # RDP
-Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+Enable-NetFirewallRule -DisplayGroup 'Remote Desktop'
 
 #endregion
 
@@ -36,20 +39,32 @@ Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 #region - Enable Windows optional features and capabilities
 #region - Windows optional features
 # https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v#enable-hyper-v-using-powershell
-Enable-WindowsOptionalFeature -FeatureName 'Microsoft-Hyper-V' -All -NoRestart -Online
-Enable-WindowsOptionalFeature -FeatureName 'IIS-WebServerRole' -All -NoRestart -Online
-Enable-WindowsOptionalFeature -FeatureName 'Microsoft-Windows-Subsystem-Linux' -All -NoRestart -Online
-Enable-WindowsOptionalFeature -FeatureName 'Containers-DisposableClientVM' -All -NoRestart -Online # Windows Sandbox
-Enable-WindowsOptionalFeature -FeatureName 'TelnetClient' -All -NoRestart -Online
-Enable-WindowsOptionalFeature -FeatureName 'TFTP' -All -NoRestart -Online
+$Features = @(
+    'Microsoft-Hyper-V',
+    'IIS-WebServerRole',
+    'Microsoft-Windows-Subsystem-Linux',
+    'Containers-DisposableClientVM', # Windows Sandbox
+    'TelnetClient',
+    'TFTP'
+)
+
+foreach ($Item in $Features) {
+    Enable-WindowsOptionalFeature -FeatureName $Item -All -NoRestart -Online
+}
 
 #endregion - Windows optional features
 
 #region - Windows capabilities
 # Install the OpenSSH Client and Server
 # https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=powershell#install-openssh-for-windows
-# Add-WindowsCapability -Online -Name 'OpenSSH.Server~~~~0.0.1.0'
-Add-WindowsCapability -Online -Name 'OpenSSH.Client~~~~0.0.1.0'
+$Capability = @(
+    # 'OpenSSH.Client~~~~0.0.1.0',
+    'OpenSSH.Server~~~~0.0.1.0'
+)
+
+foreach ($Item in $Capability) {
+    Add-WindowsCapability -Online -Name $Item
+}
 
 #endregion - Windows capabilities
 
@@ -175,7 +190,7 @@ foreach ($Item in $Links.GetEnumerator()) {
     }
     Write-Output "Executing $ScriptFiles\$($Item.Name)"
     . "$ScriptFiles\$($Item.Name)"
-    Read-Host -Prompt 'Press ENTER to continue...'
+    Read-Host -Prompt 'Press ENTER to continue'
 }
 
 #endregion - Manual installation
