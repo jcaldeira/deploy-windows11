@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+; https://the.earth.li/~sgtatham/putty/0.80/puttydoc.txt#:~:text=4.33%20Storing%20configuration%20in%20a%20file
+[HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\Default%20Settings]
+"LogFileName"="C:\\Users\\joaoc\\OneDrive\\Utilities\\mRemoteNG Portable\\Logs\\&H-&P_&Y-&M-&D.log"
