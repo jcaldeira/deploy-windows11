@@ -7,3 +7,7 @@ Windows Registry Editor Version 5.00
 "SeparateProcess"=dword:00000001 ; Launch folder windows in a separate process
 "NavPaneShowAllCloudStates"=dword:00000001 ; Always show availability status
 "HideMergeConflicts"=dword:00000000 ; Hide folder merge conflicts
+"DisabledHotkeys"="S" ; Disable Win+S (assigned to Everything)
+"TaskbarAl"=dword:00000000 ; Taskbar is left aligned
+"TaskbarGlomLevel"=dword:00000001 ; Combine buttons when taskbar is full
+"MMTaskbarGlomLevel"=dword:00000001 ; Combine buttons when taskbar is full (multiple monitors)
